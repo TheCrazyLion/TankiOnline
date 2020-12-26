@@ -1,0 +1,37 @@
+#include<iostream>
+#include<Windows.h>
+
+using namespace std;
+
+int main()
+{
+	int newValue = 2;
+
+	HWND hwnd = FindWindowA(NULL, "Tanki Online");
+	if (hwnd == NULL)
+	{
+		cout << "cannot find window." << endl;
+		Sleep(3000);
+		exit(-1);
+	}
+	else
+	{
+		DWORD procID;
+		GetWindowThreadProcessId(hwnd, &procID);
+		HANDLE handle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, procID);
+
+		if (procID = NULL)
+		{
+			cout << "cannot obtain process." << endl;
+			Sleep(3000);
+			exit(-1);
+		}
+		else
+		{
+			WriteProcessMemory(handle, (LPVOID)0x8B439581, &newValue, sizeof(newValue), 0);
+		}
+
+	}
+
+	return 0;
+}
